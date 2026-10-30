@@ -1,0 +1,191 @@
+
+==============================================================================
+0. PARAMETERS (Table 1)
+==============================================================================
+Ne (diploid)              = 10,000
+gene copies 2Ne           = 20,000 per generation
+mu per site per gen       = 1.25e-08
+budget B                  = 240,000 generations (6 Myr / 25 yr); generous 450,000 (9 Myr / 20 yr)
+log10(B)                  = 5.38
+
+==============================================================================
+A.1  CLASS I: SINGLE SUBSTITUTIONS  (Sec. 3.2, Appendix A.1)
+==============================================================================
+favored allele s=0.01:  u = 2s = 0.02
+  arrival   1/(2Ne mu 2s) = 2.000e+05 gen
+  fixation  (2/s) ln(2Ne) = 1,980.7 gen
+  W1 total                  = 2.020e+05 gen  = 5.05 Myr  (0.84 B)
+
+neutral specified allele: arrival 1/mu = 8.000e+07 gen; conditional fixation 4Ne = 4.000e+04 gen (1.0 Myr)
+genome-wide neutral substitution rate = mu per site per generation (no arrival wait needed)
+
+==============================================================================
+A.3  SEGREGATING PROBABILITY OF A SPECIFIED k-TUPLE  (Eq. 4, Appendix A.3)
+==============================================================================
+k=8, C_8 = 1e3  ->  omega_8 = C/4^8 = 1.5259e-02
+P_seg(per locus) = 2Ne mu^8 omega_8 * 4Ne = 7.276e-57  (log10 = -56.14)
+summed over 1e4 candidate loci: 7.276e-53  (log10 = -52.14)
+
+==============================================================================
+3.3 / TABLE 3  FIRST-ARRIVAL TIME T = 4^k/(2Ne mu^k C_k)  (log10 generations)
+==============================================================================
+  Ne (diploid)        2Ne |   k=2 C=1   k=5 C=1   k=8 C=1 |  k=2 C=1e3  k=5 C=1e3  k=8 C=1e3
+         1e+04      2e+04 |      12.7      38.2      63.7 |       9.7      35.2      60.7   # hominin central
+         1e+05      2e+05 |      11.7      37.2      62.7 |       8.7      34.2      59.7   # ancestral hominoid peaks
+         1e+06      2e+06 |      10.7      36.2      61.7 |       7.7      33.2      58.7   # Lynch regime
+         1e+08      2e+08 |       8.7      34.2      59.7 |       5.7      31.2      56.7   # unrealistic
+         1e+10      2e+10 |       6.7      32.2      57.7 |       3.7      29.2      54.7   # microbial
+
+budget log10 B = 5.38
+extreme case Ne=1e9, C_8=1e3, k=8: T = 5.498e+55 gen (log10 = 55.74); excess over B = 10^50.4
+
+==============================================================================
+PER-POSITION MULTIPLIER  (Sec. 3.3, Fig. 2 caption, Appendix B)
+==============================================================================
+fixed C_k (omega = C/4^k): T(k+1)/T(k) = 4/mu      = 3.200e+08   (8.51 decades)
+fixed omega_k           : T(k+1)/T(k) = 1/mu      = 8.000e+07   (7.90 decades)
+
+==============================================================================
+SCENARIO 1  8-NUCLEOTIDE MICRO-RNA SEED MATCH, BOTH PRESITE REGIMES  (Sec. 6.2)
+==============================================================================
+PRESITE-RICH (Durrett & Schmidt 2008, QUOTED):
+  a 1-kb region holds on average 3.85 six-of-eight partial matches to any target word;
+  a seven-of-eight presite exists with probability ~ 5/16.
+  8-mer completed from a 7-of-8 presite : 3.75e5 yr   (1.5e4 gen = 0.06 B)
+  PWM-flexible (any 7-of-8 binds)       : ~6e4 yr
+  de novo 6-mer in a 1-kb region        : ~1e5 yr
+  presite-free exact 8-mer (their sim.) : ~650 Myr  (= 108 B)
+
+PRESITE-FREE, single specified locus, COMPUTED via Eq. (3):
+  C_8 = 1   (omega_8 = 4^-8)      : T = 5.498e+63 gen  (1.37e+65 yr)
+  C_8 = 1e3 (omega_8 = 1.5e-2)    : T = 5.498e+60 gen  (1.37e+62 yr)
+  aggregate 1e10 target sites     : T = 5.498e+50 gen  -> excess over B = 10^45.4
+
+==============================================================================
+SCENARIO 2  DURRETT-SCHMIDT TWO-MUTATION REGULATORY CASE  (QUOTED, Table 2)
+==============================================================================
+parameters: n = 2e4 haploids; mu = 1e-8; u1 = 1e-7 (inactivation); u2 = 3.3e-9 (creation);
+            neutral intermediate; 1-kb region (DS 2008, Table 2)
+Theorem 1 mean = 8,660,258 generations = 217 Myr at 25 yr/gen
+simulation mean= 6,464,920 generations
+excess over B  = 36.1 x
+
+CENSUS SENSITIVITY AXIS (arrival sums over census; establishment local to Ne; structured-population
+scaling linear in c = census/Ne; the panmictic alternative would set Ne = census, rejected by the
+three genealogical Ne measurements):
+  census     1 x Ne: mean = 8.660e+06 gen = 216.506 Myr; excess = 36.0844 x B  (outside budget)
+  census    10 x Ne: mean = 8.660e+05 gen = 21.651 Myr; excess = 3.6084 x B  (outside budget)
+  census   100 x Ne: mean = 8.660e+04 gen = 2.165 Myr; excess = 0.3608 x B  (within budget)
+  census  1000 x Ne: mean = 8.660e+03 gen = 0.217 Myr; excess = 0.0361 x B  (within budget)
+plausibility anchor: habitable-area reconstructions for Pleistocene human populations place the
+Old World census at 2.1-8.3 million at the Last Glacial Maximum (Gautney & Holliday 2015,
+J Archaeol Sci 58:103-112), i.e., sustained census/Ne ratios of ~2e2-8e2 against Ne=1e4 - the
+hominin-specific 100x-1000x reading. Across other vertebrate taxa the sustained adult-census/Ne
+ratio is typically ~2-10 (Frankham 1995, Genet Res 66:95-107).
+establishment phase (fixation of the completed allele, ~4Ne = 1 Myr) is unaffected by census
+but is short relative to B in every reading.
+the presite-rich variants of the same biology (Scenario 1) run 1e4-6e4 gen and fit the budget
+
+==============================================================================
+A.2 / POLYNOMIAL TUNNELING CORRECTION AT THE DS PARAMETERS  (Sec. 3.5, Appendix A.2)
+==============================================================================
+simultaneous arrival for the DS two-event target: 1/(n u1 u2) = 1.515e+11 gen
+DS tunneling (Theorem 1)                        = 8.660e+06 gen
+polynomial correction = 1.750e+04  (log10 = 4.24; ~10^4)
+worth ~10^4 at k=2 (decisive: brings the case to the budget margin), immaterial for k>=5
+
+==============================================================================
+SCENARIO 5  COMPOSITE OPERATION OF THE MECHANISM SET, PRESITE-FREE 8-MER  (Sec. 6.2)
+==============================================================================
+best-case joint grants, presite-free 8-mer (C_8 = 1e3):
+  raw single locus                      : 5.498e+60 gen
+  (i) 1e10 aggregate effective sites    : 5.498e+50 gen
+  (ii) blanket tunneling x1.75e+04      : 3.142e+46 gen
+  (iii) recombination/standing variation: inoperative (P_seg < 1e-52 over 1e4 loci; A.3)
+  (iv) IAD/genotype networks            : presuppose the seed (see K-S row, Table 2)
+composite ceiling  = 3.142e+46 gen = 7.856e+47 yr
+composite excess over B = 1.309e+41  (log10 = 41.1 -> ~10^41)
+compression achieved by joint operation = 1.75e+14 (~14.2 orders)
+
+same joint grants applied at the class boundary k=5:
+  fully specified (C_5 = 1): raw excess = 6.99e+32 x B (log10 = 32.8); composite excess = 4.00e+18 x B (log10 = 18.6)
+  maximal degeneracy (C_5 = 1e3): raw excess = 6.99e+29 x B (log10 = 29.8); composite excess = 4.00e+15 x B (log10 = 15.6)
+class-level composite residual: >=1e18 x B at k=5 (fully specified), rising to ~1e41 x B at k=8
+Class IV composite route = Appendix A.4 supply model: marginally budget-compatible at
+generic-binding density (observed de novo gene rate), excluded at Axe-class specificity.
+
+==============================================================================
+SCENARIO 3  BEHE-SNOKE TWO-RESIDUE FEATURE VIA DUPLICATION  (Appendix A.5)
+==============================================================================
+published requirement: N >= 1e+09 to fix within 1e+08 generations
+linear extrapolation to Ne = 1e+04: T = 1.000e+13 gen = 2.50e+14 yr
+excess over B = 4.17e+07 x
+Lynch (2005) rescue: ~1e6 yr 'with high probability' PROVIDED Ne > 1e6 (QUOTED; author notes
+the conclusion is 'a highly conservative conclusion with respect to both the time and
+population-size requirements'; his abstract: 'populations of only moderate size')
+
+==============================================================================
+SCENARIO 4 / A.4  DE NOVO BENEFICIAL ORF SUPPLY  (Sec. 5.6, Appendix A.4)
+==============================================================================
+Nc=1e+05, n_tr=1e+03: trials = 2.40e+13; required establishment-competent density rho_fix = 2.50e-12  [central census]
+    s = 1e-02: establishment cost 1/(2s) = 5e+01 -> required origination density = 1.25e-10
+    s = 1e-03: establishment cost 1/(2s) = 5e+02 -> required origination density = 1.25e-09
+Nc=1e+06, n_tr=1e+04: trials = 2.40e+15; required establishment-competent density rho_fix = 2.50e-14  [generous census]
+    s = 1e-02: establishment cost 1/(2s) = 5e+01 -> required origination density = 1.25e-12
+    s = 1e-03: establishment cost 1/(2s) = 5e+02 -> required origination density = 1.25e-11
+benchmark densities (QUOTED):
+  Keefe-Szostak 2001: 4 ATP-binding 80-mers recovered from ~6e12 random sequences
+                      -> rho ~ 6.7e-13, quoted in the literature as order 1e-12 to 1e-11
+  Axe 2004           : rho <= 1e-77 for a specified 150-residue structured fold with function
+  -> origination requirement coincides with the generic-binding anchor at the generous census
+     reading (marginally supplyable), exceeds it at the central reading, and is tens of orders
+     ABOVE what Axe-class specificity would require (excluded if Axe-class) under every reading
+NOTE: the naive model T = 1/(2Ne mu^3 n_ORF rho) is NOT used in the manuscript; it double-counts
+specification by billing ORF origination itself to the standard model.
+
+==============================================================================
+TABLE 2  CLASS IV CONVERSION UNDER THE GENEROUS TRIAL CEILING  (theta = 1 novel chain/genome/gen)
+==============================================================================
+rho = 1e-77  [Axe 2004 specified fold+function]: trials = 1.0e+77; T = 5.00e+72 gen = 1.25e+74 yr; excess over B = 10^67.3
+rho = 1e-11  [Keefe-Szostak any ATP binding (generous end)]: trials = 1.0e+11; T = 5.00e+06 gen = 1.25e+08 yr; excess over B = 10^1.3
+
+==============================================================================
+SANFORD ET AL. 2015 (QUOTED)  MENDEL'S ACCOUNTANT, MODEL HOMININ POPULATION
+==============================================================================
+parameters: N = 1e4; 20-yr generation; 50% selective elimination (their strong-selection
+setting - more extreme than empirical mortality schedules; treated as a sensitivity axis)
+shortest string tested k=1 : 1.53 Myr  (0.26 B)
+k=2                        : 84 Myr    (14 x B)
+k=5                        : 2.0 Gyr
+k=6                        : 4.24 Gyr
+k=8                        : 18.5 Gyr  (3.1e3 x B)
+
+==============================================================================
+FIGURE 2 DATA  T = 1/(2Ne mu^k), omega = 1  (waiting-time curves)
+==============================================================================
+k=1 at Ne=1e4: T = 1/(2e4*1.25e-8) = 4.0e3 gen  (below B)
+k=2 at Ne=1e4: T = 5.12e+12 gen
+k=3 at Ne=1e4: T = 1.64e+21 gen
+k=5 at Ne=1e4: T = 1.68e+38 gen
+k=8 at Ne=1e4: T = 5.50e+63 gen
+multiplier per added position (C fixed) = 4/mu = 3.2e8
+
+==============================================================================
+FIGURE 3 DATA  ESTIMATES vs BUDGET (years)
+==============================================================================
+ 5.000e+04 yr   (8.33e-03 x budget)   Soft sweep from standing variant (conditional)
+ 3.750e+05 yr   (6.25e-02 x budget)   8-mer from 7-of-8 presite (DS 2008, presite-rich)
+ 1.000e+06 yr   (1.67e-01 x budget)   Neutral substitution, conditional fixation (4Ne)
+ 5.050e+06 yr   (8.42e-01 x budget)   Specified favored substitution (arrival + fixation)
+ 2.165e+06 yr   (3.61e-01 x budget)   Two-mutation regulatory (DS), sustained 100x census
+ 2.160e+08 yr   (3.60e+01 x budget)   Two-mutation regulatory (DS 2008 tunneling)
+ 1.250e+08 yr   (2.08e+01 x budget)   Binding-only random protein (K-S, generous ceiling)
+ 2.500e+14 yr   (4.17e+07 x budget)   2-residue feature via duplicate (B&S, extrapolated)
+ 1.374e+62 yr   (2.29e+55 x budget)   Exact 8-nt string, presite-free, C=1e3 (this paper)
+ 7.856e+47 yr   (1.31e+41 x budget)   Composite best case, presite-free 8-mer (Scenario 5)
+ 1.250e+74 yr   (2.08e+67 x budget)   Novel 150-aa fold at Axe density (generous ceiling)
+
+==============================================================================
+FIGURE 4 / MECHANISM MATRIX: no computation (literature matrix, Sec. 5)
+==============================================================================
+Requirement matrix fig4_mechanism_matrix.png: qualitative literature synthesis; no numbers here.
