@@ -76,7 +76,6 @@ All figures are conditional on the stated parameters; the manuscript examines th
 
 ## Related
 
-- **Manuscript**: "Can Mutation and Selection Assemble Human Innovations in the Time Available? A Quantitative Re-examination of the Waiting-Time Problem" (under submission, BioSystems — transferred from the Journal of Theoretical Biology).
 - **Zenodo deposit** (script + output, Version 1.0.0): [DOI: 10.5281/zenodo.24096351](https://doi.org/10.5281/zenodo.24096351)
 
 ## Author
